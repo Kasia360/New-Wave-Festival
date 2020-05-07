@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "name": "New-Wave-Festival",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Kasia360/New-Wave-Festival.git",
+  "author": "Kasia Brzezinska <kasiaplaskota4@gmail.com>",
+  "license": "MIT"
+}
