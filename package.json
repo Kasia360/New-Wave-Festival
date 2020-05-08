@@ -1,17 +1,18 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "4.17.1",
-    "nodemon": "^2.0.3",
-    "uuid": "^8.0.0"
-  },
   "name": "New-Wave-Festival",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:Kasia360/New-Wave-Festival.git",
   "author": "Kasia Brzezinska <kasiaplaskota4@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "cd client && yarn install && yarn build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "4.17.1",
+    "nodemon": "^2.0.3",
+    "uuid": "^8.0.0"
   },
 }
