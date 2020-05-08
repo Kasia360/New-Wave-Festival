@@ -1,16 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const app = express();
+
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
 const concertsRoutes = require('./routes/concerts.routes');
 const seatsRoutes = require('./routes/seats.routes');
 
+const app = express();
 //middleware
 app.use(cors());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(express.json());
 
 app.use('/api', testimonialsRoutes); // add testimonials routes to server
@@ -25,7 +28,9 @@ app.get('*', (req, res) => {
 });
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Not found...' });
+  res.status(404).json({
+    message: 'Not found...'
+  });
 });
 
 app.listen(8000, () => {

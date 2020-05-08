@@ -14,8 +14,7 @@ class OrderTicketForm extends React.Component {
       seat: '',
     },
     isError: false,
-  }
-
+  };
   updateSeat = (e, seatId) => {
     const { order } = this.state;
 
@@ -28,7 +27,7 @@ class OrderTicketForm extends React.Component {
     const { value, name } = target;
 
     this.setState({ order: { ...order, [name]: value }});
-  }
+  };
 
   updateNumberField = ({ target }) => {
     const { order } = this.state;
@@ -45,7 +44,7 @@ class OrderTicketForm extends React.Component {
 
     if(order.client && order.email && order.day && order.seat) {
       addSeat(order);
-      this.setState({ 
+      this.setState({
         order: {
           client: '',
           email: '',
@@ -98,9 +97,9 @@ class OrderTicketForm extends React.Component {
             <Button color="primary" className="mt-3">Submit</Button>
           </Col>
           <Col xs="12" md="6">
-            <SeatChooser 
+            <SeatChooser
               chosenDay={order.day}
-              chosenSeat={order.seat} 
+              chosenSeat={order.seat}
               updateSeat={updateSeat} />
           </Col>
         </Row>
