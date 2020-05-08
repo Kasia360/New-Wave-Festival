@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { v4: uuidv4 } = require('uuid');
+const {
+  v4: uuidv4
+} = require('uuid');
 
 router.route('/seats').get((req, res) => {
   res.json(db.seats);
@@ -20,13 +22,18 @@ router.route('/seats').post((req, res) => {
     email: req.body.email
   };
   if (
-  db.seats.some(seat => seat.day == newSeat.day && seat.seat == newSeat.seat)
-    ) {
-      res.json({ message: 'The slot is already taken...' });
-    } else {
-      db.seats.push(newSeat);
-      res.json({ message: 'OK' });
-    }
+    db.seats.some(seat => seat.day == newSeat.day && seat.seat == newSeat.seat)
+  ) {
+    res.json({
+      message: 'The slot is already taken...'
+    });
+  } else {
+    db.seats.push(newSeat);
+    req.io.emit('seatsUpdated', db.seats);
+    res.json({
+      message: 'OK'
+    });
+  }
 });
 
 router.route('/seats/:id').put((req, res) => {
@@ -40,14 +47,18 @@ router.route('/seats/:id').put((req, res) => {
     email: req.body.email
   };
   db.seats[index] = updatedSeat;
-  res.json({ message: 'OK' });
+  res.json({
+    message: 'OK'
+  });
 });
 
 router.route('/seats/:id').delete((req, res) => {
   const seat = db.seats.find(item => item.id == req.params.id);
   const index = db.seats.indexOf(seat);
   db.seats.splice(index, 1);
-  res.json({ message: 'OK' });
+  res.json({
+    message: 'OK'
+  });
 });
 
 module.exports = router;
