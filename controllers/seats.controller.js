@@ -1,4 +1,5 @@
 const Seat = require('../models/seat.model');
+const Client = require('../models/client.model');
 
 exports.getAll = async (req, res) => {
   try {
@@ -26,15 +27,31 @@ exports.getById = async (req, res) => {
 
 exports.addNew = async (req, res) => {
   try {
+    let clientId = '';
     const {
       day,
       seat,
-      client
+      client,
+      email
     } = req.body;
+    const existingClient = await Client.findOne({
+      name: client,
+      email: email
+    });
+
+    if (!existingClient) {
+      const newUser = await new Client({
+        name: client,
+        email: email
+      });
+      const user = await newUser.save();
+      clientId = user._id;
+    } else clientId = existingClient._id;
+
     const newSeat = new Seat({
       day: day,
       seat: seat,
-      client: client
+      client: clientId
     });
     await newSeat.save();
     res.json({
