@@ -9,7 +9,7 @@ const seatSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  client_id: {
+  client: {
     type: String,
     required: true,
     ref: 'Client'
