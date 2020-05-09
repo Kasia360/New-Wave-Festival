@@ -3,8 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const socket = require('socket.io');
 const mongoose = require('mongoose');
-
-
+const helmet = require('helmet');
 
 // import routes
 const testimonialsRoutes = require('./routes/testimonials.routes');
@@ -13,6 +12,7 @@ const seatsRoutes = require('./routes/seats.routes');
 
 const app = express();
 //middleware
+app.use(helmet());
 app.use(cors());
 app.use(express.urlencoded({
   extended: false
@@ -42,9 +42,18 @@ app.use((req, res) => {
 });
 
 // connects our backend code with the database
-mongoose.connect('mongodb://localhost:27017/NewWaveDB', {
-  useNewUrlParser: true
-});
+process.env.NODE_ENV === 'production' ?
+  mongoose.connect(
+    `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@cluster0-o1j4s.mongodb.net/NewWaveDB?retryWrites=true&w=majority`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  ) :
+  mongoose.connect('mongodb://localhost:27017/NewWaveDB', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
 const db = mongoose.connection;
 
 db.once('open', () => {
@@ -64,3 +73,4 @@ io.on('connection', socket => {
     socket.broadcast('seatsUpdated', seats);
   });
 });
+module.exports = server;
