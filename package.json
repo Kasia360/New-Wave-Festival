@@ -22,7 +22,7 @@
     "mongoose": "^5.9.13",
     "nodemon": "^2.0.3",
     "onchange": "^7.0.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^8.0.0"
   }
 }
